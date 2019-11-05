@@ -234,7 +234,7 @@ public class Change_Todo extends JFrame {
 				}
 				
    	   		setVisible(false);
-       	   	new TodoList(Subject_Name).setVisible(true);
+       	   	new Todolist(Subject_Name).setVisible(true);
    	   							}
    	   	}			
    	   	
@@ -244,7 +244,7 @@ public class Change_Todo extends JFrame {
       Cancel_Button.addActionListener(new ActionListener(){
     	   	public void actionPerformed(ActionEvent arg0) {
     	   	setVisible(false);
-    	   	new TodoList(Subject_Name).setVisible(true);
+    	   	new Todolist(Subject_Name).setVisible(true);
     	   	  }
     	  });
  

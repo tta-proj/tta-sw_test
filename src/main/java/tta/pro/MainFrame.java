@@ -847,7 +847,7 @@ public class MainFrame extends JFrame{
 	public Mainpage MP = null;
 	public Login Log = null;
 	public ShowAll_Todo SA = null;
-	public TodoList TD = null;
+	public Todolist TD = null;
 		
 	public void change(String panelName)	{
 		// 과목 페이지 전환
@@ -871,7 +871,7 @@ public class MainFrame extends JFrame{
 	public void change(String panelName, String Subject_Name) {
 		if(panelName.equals("ToDoList")) {
 			this.setVisible(false);
-			this.TD = new TodoList(Subject_Name);
+			this.TD = new Todolist(Subject_Name);
 			this.TD.setSubject_Name(Subject_Name);
 			this.TD.revalidate();
 			this.TD.repaint();

@@ -6,6 +6,9 @@ import java.io.FileOutputStream;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import tta.base.Task;
+
 import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;
@@ -16,6 +19,8 @@ public class Change_Todo extends JFrame {
 	String[] Todo = {"","","",""};	
 	String[] data = {"","","","","",""};
 	String Subject_Name;
+	
+	Task t_list = new Task();
 	
 
 	Change_Todo(final int SelectedRowNum,final String[] data,final String Subject_Name){
@@ -194,17 +199,20 @@ public class Change_Todo extends JFrame {
    			Color navy = new Color(0,32,96);
    			UI.put("OptionPane.messageForeground", navy);
    			for(int i=0;i<1;i++) {
-			if(Todo[i].equals("") || data[i+2].equals("입력해주세요") || data[i+4].equals("") || Todo[i+3].equals("") ||
-					Todo[i+1].equals("") || data[i+3].equals("") ||Todo[i+2].equals("")) {
-				JOptionPane.showMessageDialog(null , "필수 입력 사항입니다.", "알림", JOptionPane.INFORMATION_MESSAGE);    									
-			}
-			else if(data[i].equals("2월30일") || data[i+1].equals("2월31일") || data[i].equals("4월31일") || data[i].equals("6월31일") || data[i].equals("9월31일") || data[i].equals("11월31일") ||
-					data[i+1].equals("2월30일") || data[i].equals("2월31일") || data[i+1].equals("4월31일") || data[i+1].equals("6월31일") || data[i+1].equals("9월31일") || data[i+1].equals("11월31일")) {
-				JOptionPane.showMessageDialog(null , "날짜를 다시 선택해주세요.", "알림", JOptionPane.INFORMATION_MESSAGE);
-			}
-			else change = Boolean.TRUE;
+				if(Todo[i].equals("") || data[i+2].equals("입력해주세요") || data[i+4].equals("") || Todo[i+3].equals("") ||
+						Todo[i+1].equals("") || data[i+3].equals("") ||Todo[i+2].equals("")) {
+					JOptionPane.showMessageDialog(null , "필수 입력 사항입니다.", "알림", JOptionPane.INFORMATION_MESSAGE);    									
+				}
+				else if(data[i].equals("2월30일") || data[i+1].equals("2월31일") || data[i].equals("4월31일") || data[i].equals("6월31일") || data[i].equals("9월31일") || data[i].equals("11월31일") ||
+						data[i+1].equals("2월30일") || data[i].equals("2월31일") || data[i+1].equals("4월31일") || data[i+1].equals("6월31일") || data[i+1].equals("9월31일") || data[i+1].equals("11월31일")) {
+					JOptionPane.showMessageDialog(null , "날짜를 다시 선택해주세요.", "알림", JOptionPane.INFORMATION_MESSAGE);
+				}
+				else change = Boolean.TRUE;
    			}
-		if(change == Boolean.TRUE) {						
+   			
+   			
+   			if(change == Boolean.TRUE) {		
+			/*
 						try {
    	   		
 							FileInputStream fis = new FileInputStream("./Subject_Dir/ToDolist_Dir/"+ Subject_Name +".xlsx");
@@ -232,11 +240,12 @@ public class Change_Todo extends JFrame {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
-   	   		setVisible(false);
-       	   	new Todolist(Subject_Name).setVisible(true);
-   	   							}
-   	   	}			
+			*/
+   				t_list.ReWriteTodo(SelectedRowNum, Subject_Name, data);
+   				setVisible(false);
+   				new Todolist(Subject_Name).setVisible(true);
+   			}
+   	   	}
    	   	
    	  });			
        

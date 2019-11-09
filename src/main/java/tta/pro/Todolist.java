@@ -5,13 +5,11 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableRowSorter;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import java.io.FileInputStream;  
-import java.io.FileOutputStream;  
-import java.util.Iterator;
+import java.util.List;
 import java.util.Vector;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import tta.base.Task;
+
 import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;
@@ -35,21 +33,23 @@ class Back {
 }
 
 public class Todolist extends JFrame{
-   private JCheckBox chk;
-   private JButton Hide_Button;
-   private Register_Todo RT;
-   private JButton Add_Button;
-   private JButton Delete_Button;
-   private JButton Change_Button;   
-   private Cell cell;  
- 
-   	private JTable table; 
-    DefaultTableModel model;
-   
-    public String[] column = {"V", "할 일", "마감 기한", "실제 마감일", "완료 여부", "중요도"};
-    public Object rowData[][];
-       
-    private String Subject_Name = new String();
+	private JCheckBox chk;
+	private JButton Hide_Button;
+	private Register_Todo RT;
+	private JButton Add_Button;
+	private JButton Delete_Button;
+	private JButton Change_Button;   
+	private Cell cell;  
+	   
+	Task t_list = new Task();
+	
+	private JTable table; 
+	DefaultTableModel model;
+	   
+	public String[] column = {"V", "할 일", "마감 기한", "실제 마감일", "완료 여부", "중요도"};
+	public Object rowData[][];
+	      
+	private String Subject_Name = new String();
     
     
     public void HeaderSetting_2() {
@@ -128,9 +128,19 @@ public class Todolist extends JFrame{
        TableRowSorter tablesorter = new TableRowSorter(table.getModel());
        table.setRowSorter(tablesorter);
        table.setRowHeight(30); // 셀높이조절
-          
-      HeaderSetting_2();
-      HeaderSetting();
+       
+       HeaderSetting_2();
+       HeaderSetting();
+       
+       
+       List<Object[]> tasklist = t_list.ReadSubjectTodo(Subject_Name);
+       
+       for(int i=0; i<tasklist.size(); i++)
+       {
+    	   model.addRow(tasklist.get(i));
+       }
+       
+       /*
           try {
                  FileInputStream fis = new FileInputStream("./Subject_Dir/ToDolist_Dir/"+ Subject_Name +".xlsx");
                  XSSFWorkbook workbook = new XSSFWorkbook(fis);
@@ -154,6 +164,7 @@ public class Todolist extends JFrame{
               catch (Exception e){
                     e.printStackTrace();
               }  
+              */
    }
       
      
@@ -253,8 +264,17 @@ public class Todolist extends JFrame{
                if(Hide_Button.getText().equals("숨기기")) {   
             	   Hide_Button.setText("보여주기");
             	   model = (DefaultTableModel)table.getModel();
-              		model.setNumRows(0);
-              		
+            	   model.setNumRows(0);
+            	   
+            	   List<Object[]> tasklist = t_list.ReadWithoutDoneTodo(Subject_Name);
+                   
+                   for(int i=0; i<tasklist.size(); i++)
+                   {
+                	   model.addRow(tasklist.get(i));
+                   }
+              	
+            	   
+              		/*
             	 try {
             	FileInputStream fis = new FileInputStream("./Subject_Dir/ToDolist_Dir/"+ Subject_Name +".xlsx");
 				XSSFWorkbook workbook = new XSSFWorkbook(fis);
@@ -274,12 +294,24 @@ public class Todolist extends JFrame{
                    }
                    catch (Exception ex){
                          ex.printStackTrace();
-                   }                
+                   }     
+                   */           
                }
-               else {                  
-                   		
+               else {       
+            	   Hide_Button.setText("숨기기");
+            	   
+            	   model = (DefaultTableModel)table.getModel();
+                   model.setNumRows(0);
+           
+                   List<Object[]> tasklist = t_list.ReadSubjectTodo(Subject_Name);
+                   
+                   for(int i=0; i<tasklist.size(); i++)
+                   {
+                	   model.addRow(tasklist.get(i));
+                   }
+            	   /*
        	 try {
-       		Hide_Button.setText("숨기기");
+       		
        		FileInputStream fis = new FileInputStream("./Subject_Dir/ToDolist_Dir/"+ Subject_Name +".xlsx");
 			XSSFWorkbook workbook = new XSSFWorkbook(fis);
 			model = (DefaultTableModel)table.getModel();
@@ -297,9 +329,11 @@ public class Todolist extends JFrame{
               }
               catch (Exception ex){
                     ex.printStackTrace();
-              }      
-               	}       
+              } 
+               */     
+               }       
          }
+        
        });
              
        Add_Button.addActionListener(new ActionListener(){
@@ -407,6 +441,12 @@ public class Todolist extends JFrame{
             for(int i = 0; i < 5; i++) {
                data[i] = table.getValueAt(SelectedRowNum2, i+1).toString();
             }
+            
+            data[5]=Subject_Name;
+            
+            t_list.DeleteTodo(data, SelectedRowNum);
+            
+            /*
             try {
                
                   data[5]=Subject_Name;
@@ -433,7 +473,7 @@ public class Todolist extends JFrame{
             } catch (Exception ex) {
                ex.printStackTrace();
             } 
-                        
+                       
                try {
                   FileInputStream fis = new FileInputStream("./Subject_Dir/ToDolist_Dir/"+ Subject_Name +".xlsx");
                   XSSFWorkbook workbook = new XSSFWorkbook(fis);
@@ -497,6 +537,8 @@ public class Todolist extends JFrame{
                } catch (Exception ex) {
                   ex.printStackTrace();
                } 
+               */ 
+
                RefreshTable();        
             	}
             }

@@ -236,8 +236,8 @@ public class ShowAll_Todo extends JFrame {
 			} // if(파일일경우)
 		} // for(f)
 		*/
-        task.ReadTodo();
-        List<Object[]> tasklist = task.getTodo();
+        
+        List<Object[]> tasklist = task.ReadAllTodo();
         
         for(int i=0; i<tasklist.size(); i++)
         {

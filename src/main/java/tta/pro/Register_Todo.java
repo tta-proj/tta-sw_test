@@ -6,6 +6,9 @@ import java.io.FileOutputStream;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import tta.base.Task;
+
 import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;
@@ -17,6 +20,8 @@ public class Register_Todo extends JFrame{
 	String[] data = {"","","","","",""};
 	String Subject_Name;
 	private Todolist TD;
+	
+	Task t_list = new Task();
 	
 	
 	Register_Todo(final String Subject_Name){
@@ -209,10 +214,9 @@ public class Register_Todo extends JFrame{
     				}
     				else Done = Boolean.TRUE;
     			
-    			if(Done == Boolean.TRUE) {
-    	   			
-					
-						
+    				if(Done == Boolean.TRUE) {
+
+					/*	
 						try {
     	   		
 							FileInputStream fis = new FileInputStream("./Subject_Dir/ToDolist_Dir/"+ Subject_Name +".xlsx");
@@ -244,11 +248,13 @@ public class Register_Todo extends JFrame{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
-    	   		setVisible(false);
-        	   	TD = new Todolist(Subject_Name);
-        	   	TD.setVisible(true);
-    	   	}
+				*/
+    					
+    				t_list.WriteTodo(data);
+    				setVisible(false);
+    				TD = new Todolist(Subject_Name);
+    				TD.setVisible(true);
+    			}
     	   	}		
    	   	
     	  });			

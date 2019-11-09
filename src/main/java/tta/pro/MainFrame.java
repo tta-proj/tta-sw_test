@@ -1,5 +1,7 @@
 package tta.pro;
 
+import tta.base.SortExcel;
+
 import java.util.*;
 import java.util.regex.*;
 import java.awt.*;
@@ -740,7 +742,7 @@ class Mainpage extends JPanel{
 					
 					
 					// 공백 정렬
-					sortExcel SE = new sortExcel();	
+					SortExcel SE = new SortExcel();	
 					SE.sort(FilePath, "Subject_List.xlsx");
 					
 				} catch (Exception ex) {
@@ -778,6 +780,7 @@ class Mainpage extends JPanel{
 	
 }
 //
+/*
 class sortExcel{
 	void sort(String FilePath, String FileName) {
 		try {	
@@ -839,7 +842,7 @@ class sortExcel{
 		
 	}
 }
-
+*/
 
 public class MainFrame extends JFrame{
 	public Add_Change_Panel AP = null;

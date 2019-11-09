@@ -1,6 +1,5 @@
 package tta.pro;
 
-import java.awt.event.*;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -17,12 +16,15 @@ import java.io.FileInputStream;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import tta.base.Task;
 
 public class ShowAll_Todo extends JFrame {
 	String Todo,Done,Sub,VALUE;
@@ -31,6 +33,8 @@ public class ShowAll_Todo extends JFrame {
 	XSSFCell cell;
     Boolean Is_import;
     File file;
+    
+    Task task = new Task();
 
     MainFrame win;
     
@@ -116,6 +120,8 @@ public class ShowAll_Todo extends JFrame {
         Table.setBackground(Color.WHITE);
         add(Table);
     	
+        
+        /*
         /////////////////////////////////////////////////////////////////엑셀파일입출력
 		String folder="./Subject_Dir/ToDolist_Dir/"; //읽을 폴더명 세팅
 		String file_name; // 읽을 파일이름
@@ -229,6 +235,14 @@ public class ShowAll_Todo extends JFrame {
 				}
 			} // if(파일일경우)
 		} // for(f)
+		*/
+        task.ReadTodo();
+        List<Object[]> tasklist = task.getTodo();
+        
+        for(int i=0; i<tasklist.size(); i++)
+        {
+        	model.addRow(tasklist.get(i));
+        }
 
 		setVisible(true);	
     

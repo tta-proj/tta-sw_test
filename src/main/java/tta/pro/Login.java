@@ -24,6 +24,7 @@ public class Login extends JPanel{
 	User user = new User();
 	Hashtable<String, String> staff;
 	
+
 	public String checkedLogin(String s_id, String s_pw)
 	{
 		
@@ -38,15 +39,16 @@ public class Login extends JPanel{
 					return("로그인 성공");
 				}
 				else
-					return("재입력");
+					if(s_id.length() !=0 && s_pw.length() ==0)
+						return("미입력");	
+					else
+						return("재입력");
 			}
 			else
 			{
 				if(s_id.length() ==0)
 					return("미입력");		
-				else if(s_id.length() !=0 && s_pw.length() ==0)
-					return("미입력");	
-				else if (s_id.matches("[0-9|a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힝]*"))
+				else if (!s_id.matches("[0-9|a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힝]*"))
 					return("특수문자 금지");
 				else
 					return("재입력");

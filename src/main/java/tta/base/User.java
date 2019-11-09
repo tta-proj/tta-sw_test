@@ -12,8 +12,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class User {
 
 	Hashtable<String, String> userStaff = new Hashtable<String, String>();//
-//	List<User> userStaff;
-//	User temp_user;
 	
 	String Todo,Done,Sub,VALUE;
 	String Dead_day,Actual_day;
@@ -23,7 +21,7 @@ public class User {
     File file;
     
     
-    public Hashtable getStaff()
+    public Hashtable<String, String> getStaff()
     {
     	return userStaff;
     }

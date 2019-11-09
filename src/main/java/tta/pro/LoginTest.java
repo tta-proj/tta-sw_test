@@ -15,11 +15,12 @@ public class LoginTest {
 		log = new Login(fm);	
 	}
 
+	/*
 	@Test //로그인
 	public void testLogin() {
 		String result = log.Login("tta", "tta123");
 		assertEquals("로그인 성공", result);
 	}
-	
+	*/
 
 }

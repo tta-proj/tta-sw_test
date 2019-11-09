@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Hashtable;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -12,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import tta.base.User;
 
 public class Login extends JPanel{
 	private JTextField id = new JTextField(20);
@@ -19,6 +21,40 @@ public class Login extends JPanel{
 	private MainFrame win;
 	private String SavedID;
 	
+	User user = new User();
+	Hashtable<String, String> staff;
+	
+	public String checkedLogin(String s_id, String s_pw)
+	{
+		
+		staff = user.getStaff();
+		
+		while(true)
+		{
+			if(staff.containsKey(s_id))
+			{
+				if(staff.get(s_id).equals(s_pw))
+				{
+					return("로그인 성공");
+				}
+				else
+					return("재입력");
+			}
+			else
+			{
+				if(s_id.length() ==0)
+					return("미입력");		
+				else if(s_id.length() !=0 && s_pw.length() ==0)
+					return("미입력");	
+				else if (s_id.matches("[0-9|a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힝]*"))
+					return("특수문자 금지");
+				else
+					return("재입력");
+			}
+		}
+	}
+	
+	/*
 	public String Login(String ID, String PW) {
 		if(ID.isEmpty())
 			return ("id 미입력");
@@ -29,7 +65,7 @@ public class Login extends JPanel{
 		else 
 			return("재입력");
 	}
-		
+		*/
 	public Login(MainFrame win) {
 		this.win = win;
 		this.setBackground(Color.WHITE);
@@ -70,32 +106,34 @@ public class Login extends JPanel{
 		add(btn1);
 
 		setBounds(0,0,650,750);
+		
+		user.ReadStaff();
 	}
 		
 	public String getID() {
 		return SavedID;
 	}
-    
+	
+	
 	class loginAction implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			String ID = id.getText();
 			String PW = new String(pw.getPassword());
 
-			String log = Login(ID, PW);
+			String logininfo = checkedLogin(ID, PW);
 			
-			if(log.contentEquals("id 미입력"))
-				JOptionPane.showMessageDialog(null , "id를 입력해주세요");
-			else if(log.contentEquals("특수문자 금지"))
+			if(logininfo.contentEquals("미입력"))
+				JOptionPane.showMessageDialog(null , "아이디, 비밀번호를 입력해주세요");
+			else if(logininfo.contentEquals("특수문자 금지"))
 				JOptionPane.showMessageDialog(null , "특수문자는 입력 불가능합니다.");
-			else if(log.contentEquals("로그인 성공")) {
-				SavedID = "tta";
+			else if(logininfo.contentEquals("로그인 성공")) {
+				SavedID = ID;
 				win.change("Mainpage");
 			}
 			else 
 				JOptionPane.showMessageDialog(null , "아이디 및 비밀번호가 틀렸습니다.");			
 		}
 	}
-	
 }
 
 

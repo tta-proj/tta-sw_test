@@ -140,31 +140,6 @@ public class Todolist extends JFrame{
     	   model.addRow(tasklist.get(i));
        }
        
-       /*
-          try {
-                 FileInputStream fis = new FileInputStream("./Subject_Dir/ToDolist_Dir/"+ Subject_Name +".xlsx");
-                 XSSFWorkbook workbook = new XSSFWorkbook(fis);
-                 Sheet sheet = workbook.getSheetAt(0);
-                 int rows = sheet.getPhysicalNumberOfRows();
-                 
-                 for(int i=1;i<rows;i++) {
-                    Row row = sheet.getRow(i);             
-                    if(row==null)
-                       rows++;
-                    else {
-                       Object[] ob = {false,row.getCell(1),row.getCell(2),row.getCell(3),row.getCell(4),row.getCell(5)} ;
-                       model.addRow(ob);   
-                     
-                    }
-
-                 } 
-               
-              fis.close();
-              }
-              catch (Exception e){
-                    e.printStackTrace();
-              }  
-              */
    }
       
      
@@ -272,30 +247,7 @@ public class Todolist extends JFrame{
                    {
                 	   model.addRow(tasklist.get(i));
                    }
-              	
-            	   
-              		/*
-            	 try {
-            	FileInputStream fis = new FileInputStream("./Subject_Dir/ToDolist_Dir/"+ Subject_Name +".xlsx");
-				XSSFWorkbook workbook = new XSSFWorkbook(fis);
-				Sheet sheet = workbook.getSheetAt(0);   
-			
-           		int rows = sheet.getPhysicalNumberOfRows();
-           		for(int i=1;i<rows;i++) {
-           			Row row = sheet.getRow(i);           			
-           			if(row.getCell(4).toString().equals("¿Ï·á"))
-           				continue;          			
-           			else {
-           				Object[] obj = {false,row.getCell(1),row.getCell(2),row.getCell(3),row.getCell(4),row.getCell(5)};
-           				model.addRow(obj);
-           			}
-           		}                
-           		fis.close();
-                   }
-                   catch (Exception ex){
-                         ex.printStackTrace();
-                   }     
-                   */           
+              	         
                }
                else {       
             	   Hide_Button.setText("¼û±â±â");
@@ -308,29 +260,7 @@ public class Todolist extends JFrame{
                    for(int i=0; i<tasklist.size(); i++)
                    {
                 	   model.addRow(tasklist.get(i));
-                   }
-            	   /*
-       	 try {
-       		
-       		FileInputStream fis = new FileInputStream("./Subject_Dir/ToDolist_Dir/"+ Subject_Name +".xlsx");
-			XSSFWorkbook workbook = new XSSFWorkbook(fis);
-			model = (DefaultTableModel)table.getModel();
-            model.setNumRows(0);
-			Sheet sheet = workbook.getSheetAt(0);   
-       	
-			int rows = sheet.getPhysicalNumberOfRows();
-      		
-      		for(int i=1;i<rows;i++) {
-      			Row row = sheet.getRow(i);      			
-      			Object[] obj = {false,row.getCell(1),row.getCell(2),row.getCell(3),row.getCell(4),row.getCell(5)} ;
-  				model.addRow(obj);
-      		}                
-      		fis.close();
-              }
-              catch (Exception ex){
-                    ex.printStackTrace();
-              } 
-               */     
+                   }    
                }       
          }
         
@@ -446,98 +376,6 @@ public class Todolist extends JFrame{
             
             t_list.DeleteTodo(data, SelectedRowNum);
             
-            /*
-            try {
-               
-                  data[5]=Subject_Name;
-               
-                  FileInputStream fis = new FileInputStream("./Subject_Dir/ToDolist_Dir/Trashcan.xlsx");
-                  XSSFWorkbook workbook = new XSSFWorkbook(fis);
-                  Sheet sheet = workbook.getSheetAt(0);
-
-                  int rows = sheet.getPhysicalNumberOfRows();
-                  Row row = sheet.createRow(rows);
-                  
-                  row.createCell(0).setCellValue(data[5]);
-                  row.createCell(1).setCellValue(data[0]);
-                  row.createCell(2).setCellValue(data[1]);               
-                  row.createCell(3).setCellValue(data[2]);                  
-                  row.createCell(4).setCellValue(data[3]);               
-                  row.createCell(5).setCellValue(data[4]);
-                  
-              
-               FileOutputStream fos = new FileOutputStream("./Subject_Dir/ToDolist_Dir/Trashcan.xlsx");
-                  workbook.write(fos);    
-                  fos.close();
-                  fis.close();
-            } catch (Exception ex) {
-               ex.printStackTrace();
-            } 
-                       
-               try {
-                  FileInputStream fis = new FileInputStream("./Subject_Dir/ToDolist_Dir/"+ Subject_Name +".xlsx");
-                  XSSFWorkbook workbook = new XSSFWorkbook(fis);
-                  Sheet sheet = workbook.getSheetAt(0);
-                  int rows=0;
-                  Iterator <Integer> it = SelectedRowNum.iterator();
-                  Row row; 
-                  Row NextRow = sheet.getRow(0);
-                  Cell NextCell = NextRow.getCell(0);
-                     
-                  while(it.hasNext()) {
-                     rows = it.next().intValue()+1;                     
-                     row = sheet.getRow(rows);
-                  
-                     row.getCell(0).setCellValue("");
-                     row.getCell(1).setCellValue("");
-                     row.getCell(2).setCellValue("");
-                     row.getCell(3).setCellValue("");
-                     row.getCell(4).setCellValue("");
-                     row.getCell(5).setCellValue("");
-                     
-                  }
-      
-                  int   NextRowNum=0;
-                                    
-                  for(int searchRow = 1; searchRow < sheet.getPhysicalNumberOfRows();searchRow++) {
-                     row = sheet.getRow(searchRow);
-                     cell = row.getCell(0);
-                     
-                     if (cell.getStringCellValue() == ""){
-                        for(NextRowNum = searchRow; NextRowNum < sheet.getPhysicalNumberOfRows(); NextRowNum++) {
-                           
-                           NextRow = sheet.getRow(NextRowNum);
-                           NextCell = NextRow.getCell(0);
-                           if(NextCell.getStringCellValue() != "") {
-                              
-                              for(int r = 0; r <row.getPhysicalNumberOfCells(); r++) {
-                                 NextCell = NextRow.getCell(r);
-                                 row.getCell(r).setCellValue(NextCell.getStringCellValue());
-                                 NextCell.setCellValue("");
-                              }
-                              break;
-                           }
-                        }
-                     }
-                  }
-                  
-                  for(int i=0; i < SelectedRowNum.size() ; i++) {                    
-                     row = sheet.getRow(sheet.getLastRowNum());
-                     sheet.removeRow(row);
-                  }
-            
-                  FileOutputStream fos = new FileOutputStream("./Subject_Dir/ToDolist_Dir/"+ Subject_Name +".xlsx");
-                  workbook.write(fos);
-                  fos.close();
-                  fis.close();
-                  
-                  sortExcel SE = new sortExcel();   
-                  SE.sort("./Subject_Dir/ToDolist_Dir/", Subject_Name +".xlsx");
-                                                            
-               } catch (Exception ex) {
-                  ex.printStackTrace();
-               } 
-               */ 
 
                RefreshTable();        
             	}

@@ -215,40 +215,6 @@ public class Register_Todo extends JFrame{
     				else Done = Boolean.TRUE;
     			
     				if(Done == Boolean.TRUE) {
-
-					/*	
-						try {
-    	   		
-							FileInputStream fis = new FileInputStream("./Subject_Dir/ToDolist_Dir/"+ Subject_Name +".xlsx");
-							XSSFWorkbook workbook = new XSSFWorkbook(fis);
-							Sheet sheet = workbook.getSheetAt(0);
-    	   			
-
-							int rows = sheet.getPhysicalNumberOfRows();
-							Row row = sheet.createRow(rows);
-    	   			
-			
-							row.createCell(0).setCellValue(data[5]);
-							row.createCell(1).setCellValue(data[2]);   	   		
-							row.createCell(2).setCellValue(data[0]);   	   			
-							row.createCell(3).setCellValue(data[1]);	   			
-							row.createCell(4).setCellValue(data[3]);
-							row.createCell(5).setCellValue(data[4]);
-							
-
-    	   			 
-    	   				FileOutputStream fos = new FileOutputStream("./Subject_Dir/ToDolist_Dir/"+ Subject_Name +".xlsx");
-    	   				workbook.write(fos);    
-    	   				fos.close();
-    	   				fis.close();
-    	   				   			
-    	   			}
-    	   		
-    	   		      catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				*/
     					
     				t_list.WriteTodo(data);
     				setVisible(false);

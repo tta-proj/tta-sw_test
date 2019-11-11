@@ -51,7 +51,8 @@ class Add_Change_Panel extends JPanel{
 	private Color MainColor = new Color(0, 32, 96);
 	
 	private int RowNum;
-	public String[] Reg_Info={"", "", "", "", "", ""};
+	public String[] Reg_Info={"", "", "", ""};
+
 	
 	private String PreName = null;
 	public String PanelName;
@@ -59,7 +60,7 @@ class Add_Change_Panel extends JPanel{
 		this.win=win;
 		setLayout(null);
 		
-		Sub_Label = new JLabel("과목 명 : ");
+		Sub_Label = new JLabel("프로젝트 명 : ");
 		Sub_Label.setBounds(100,200,100,40);
 		Sub_Label.setFont(SubFont);
 		add(Sub_Label);
@@ -68,15 +69,10 @@ class Add_Change_Panel extends JPanel{
 		Sub_Text.setBounds(180,200,350,50);
 		Sub_Text.setFont(SubFont);
 		Sub_Text.setText("");
-		/*Sub_Text.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JTextField sub = (JTextField)e.getSource();
-				Reg_Info[0]=sub.getText();
-			}
-		});*/
+
 		add(Sub_Text);
 		
-		Prof_Label = new JLabel("담당 강사 : ");
+		Prof_Label = new JLabel("담당자 : ");
 		Prof_Label.setBounds(100,260,100,40);
 		Prof_Label.setFont(SubFont);
 		add(Prof_Label);
@@ -87,32 +83,8 @@ class Add_Change_Panel extends JPanel{
 		Prof_Text.setText("");
 
 		add(Prof_Text);
-		
-		Day_Label = new JLabel("요일 : ");
-		Day_Label.setBounds(100,360,100,40);
-		Day_Label.setFont(SubFont);
-		add(Day_Label);
-		
-		String[] Days = {"월","화","수","목","금","토","일"}; 
-		Day_Combo = new JComboBox<String>(Days);
-
-		Day_Combo.setBounds(180,360,140,50);
-		Day_Combo.setFont(SubFont);
-		add(Day_Combo);
-		
-		Time_Label = new JLabel("시간 : ");
-		Time_Label.setBounds(350,360,100,50);
-		Time_Label.setFont(SubFont);
-		add(Time_Label);
-		
-		Time_Text = new JTextField(20);
-		Time_Text.setBounds(400,360,140,50);
-		Time_Text.setFont(SubFont);
-		Time_Text.setText("");
-
-		add(Time_Text);
-		
-		Year_Label = new JLabel("수강 년도 : ");
+	
+		Year_Label = new JLabel("년도 : ");
 		Year_Label.setBounds(100,460,100,40);
 		Year_Label.setFont(SubFont);
 		add(Year_Label);
@@ -130,12 +102,12 @@ class Add_Change_Panel extends JPanel{
 		add(Year_Combo);
 		
 		
-		Sem_Label = new JLabel("학기 : ");
+		Sem_Label = new JLabel("분기 : ");
 		Sem_Label.setBounds(350,460,100,40);
 		Sem_Label.setFont(SubFont);
 		add(Sem_Label);
 		
-		String[] Sems = {"1학기","2학기"}; 
+		String[] Sems = {"1분기","2분기","3분기","4분기"}; 
 		Sem_Combo = new JComboBox<String>(Sems);
 
 		Sem_Combo.setBounds(400,460,140,50);
@@ -147,7 +119,7 @@ class Add_Change_Panel extends JPanel{
 		Reg_Button.setSize(150,50);
 		Reg_Button.setLocation(180,600);
 		Reg_Button.setFont(ButtonFont);
-		Reg_Button.addActionListener(new OkActionListener(Sub_Text, Prof_Text, Time_Text, Day_Combo, Year_Combo, Sem_Combo));
+		Reg_Button.addActionListener(new OkActionListener(Sub_Text, Prof_Text, Year_Combo, Sem_Combo));
 		add(Reg_Button);
 				
 				
@@ -165,7 +137,7 @@ class Add_Change_Panel extends JPanel{
 	
 	public Add_Change_Panel(MainFrame win, String PanelName) {
 		if(PanelName == "Add_Panel") {
-			Title_Label = new JLabel("수강 과목 등록");
+			Title_Label = new JLabel("프로젝트 등록");
 			Title_Label.setFont(TitleFont);
 			Title_Label.setForeground(MainColor);
 			Title_Label.setBounds(240,40,400,60);
@@ -207,15 +179,11 @@ class Add_Change_Panel extends JPanel{
 	public void ChangeMod(String[] Reg_info) {
 		Sub_Text.setText(Reg_Info[0]);
 		Prof_Text.setText(Reg_Info[1]);
-		Day_Combo.setSelectedItem(Reg_Info[2]);
-		Time_Text.setText(Reg_Info[3]);
-		Year_Combo.setSelectedItem(Reg_Info[4]);
-		Sem_Combo.setSelectedItem(Reg_Info[5]);
+		Year_Combo.setSelectedItem(Reg_Info[2]);
+		Sem_Combo.setSelectedItem(Reg_Info[3]);
 		
 		Sub_Text.repaint();
 		Prof_Text.repaint();
-		Day_Combo.repaint();
-		Time_Text.repaint();
 		Year_Combo.repaint();
 		Sem_Combo.repaint();
 	}
@@ -224,19 +192,13 @@ class Add_Change_Panel extends JPanel{
 	class OkActionListener extends JFrame implements ActionListener{
 		private JTextField Sub_Text;
 		private JTextField Prof_Text;
-		private JTextField Time_Text;
-		private JComboBox<String> Day_Combo;
 		private JComboBox<String> Year_Combo;
 		private JComboBox<String> Sem_Combo;
 		boolean addFlag;
 		
-		
-		
-		public OkActionListener(JTextField Sub_Text, JTextField Prof_Text, JTextField Time_Text, JComboBox<String> Day_Combo, JComboBox<String> Year_Combo, JComboBox<String> Sem_Combo){
+		public OkActionListener(JTextField Sub_Text, JTextField Prof_Text, JComboBox<String> Year_Combo, JComboBox<String> Sem_Combo){
 			this.Sub_Text = Sub_Text;
 			this.Prof_Text = Prof_Text;
-			this.Time_Text = Time_Text;
-			this.Day_Combo = Day_Combo;
 			this.Year_Combo = Year_Combo;
 			this.Sem_Combo = Sem_Combo;
 		}
@@ -244,10 +206,8 @@ class Add_Change_Panel extends JPanel{
 		public void actionPerformed(ActionEvent e) {
 			Reg_Info[0] = Sub_Text.getText();
 			Reg_Info[1] = Prof_Text.getText();
-			Reg_Info[2] = Day_Combo.getSelectedItem().toString();
-			Reg_Info[3] = Time_Text.getText();
-			Reg_Info[4] = Year_Combo.getSelectedItem().toString();
-			Reg_Info[5] = Sem_Combo.getSelectedItem().toString();
+			Reg_Info[2] = Year_Combo.getSelectedItem().toString();
+			Reg_Info[3] = Sem_Combo.getSelectedItem().toString();
             UIManager UI =new UIManager();
             Color navy = new Color(0,32,96);
             Font message = new Font("맑은고딕",Font.BOLD,20);
@@ -255,19 +215,9 @@ class Add_Change_Panel extends JPanel{
             UI.put("OptionPane.messageFont", message);
 			
 			//인자 확인
-			for(int i = 0; i < 6; i++) {
+			for(int i = 0; i < 4; i++) {
 				if(Reg_Info[i].equals("")) {
 					JOptionPane.showMessageDialog(null , "필수 입력 사항입니다.", "알림", JOptionPane.INFORMATION_MESSAGE);
-					addFlag = Boolean.FALSE;
-					break;
-				}
-				if(!Pattern.matches("^[ㄱ-ㅎ가-힝0-9a-zA-Z]*$", Reg_Info[i]) && i != 3) {
-					JOptionPane.showMessageDialog(null , "특수 문자는 입력할 수 없습니다.", "알림", JOptionPane.INFORMATION_MESSAGE);
-					addFlag = Boolean.FALSE;
-					break;
-				}
-				if(!Pattern.matches("^\\d{1,2}+[-]+\\d{1,2}$", Reg_Info[i]) && i == 3) {
-					JOptionPane.showMessageDialog(null , "'시간-시간'의 형태로 입력해주세요.", "알림", JOptionPane.INFORMATION_MESSAGE);
 					addFlag = Boolean.FALSE;
 					break;
 				}
@@ -293,7 +243,7 @@ class Add_Change_Panel extends JPanel{
 						Sheet sheet=workbook.createSheet();
 						sheet.createRow(0);
 						Row row = sheet.createRow(0);
-						row.createCell(0).setCellValue("과목");
+						row.createCell(0).setCellValue("프로젝트");
 						row.createCell(1).setCellValue("할 일");
 						row.createCell(2).setCellValue("마감 기한");
 						row.createCell(3).setCellValue("실제 마감일");
@@ -330,8 +280,6 @@ class Add_Change_Panel extends JPanel{
 					row.createCell(1).setCellValue(Reg_Info[1]);
 					row.createCell(2).setCellValue(Reg_Info[2]);
 					row.createCell(3).setCellValue(Reg_Info[3]);
-					row.createCell(4).setCellValue(Reg_Info[4]);
-					row.createCell(5).setCellValue(Reg_Info[5]);
 					
 					outFile = new FileOutputStream(FilePath + "Subject_List.xlsx");
 					workbook.write(outFile);	
@@ -343,8 +291,6 @@ class Add_Change_Panel extends JPanel{
 				
 				Sub_Text.setText("");
 				Prof_Text.setText("");
-				Time_Text.setText("");
-				Day_Combo.setSelectedIndex(0);
 				Year_Combo.setSelectedIndex(0);
 				Sem_Combo.setSelectedIndex(0);
 				
@@ -386,18 +332,16 @@ class Mainpage extends JPanel{
 	
 	//추가 JTable로 구현
 	private JTable Subject_Table;
-	private final String [] col = {"V", "과목", "강사", "요일", "시간", "수강년도", "학기"};
+	private final String [] col = {"V", "프로젝트", "담당자", "년도", "분기"};
 	private Object [][] datas;
 	
 	//엑셀 읽기 변수
 	private Row row;
 	private Cell cell;
 	String FilePath = "./Subject_Dir/";
-	Object ReadData[] = new Object[7];
-	
-		
+	Object ReadData[] = new Object[5];
+
 	DefaultTableModel model;
-	
 	
 	@SuppressWarnings("serial")
 	public Mainpage(MainFrame win) {
@@ -420,10 +364,6 @@ class Mainpage extends JPanel{
 						return String.class;
 					case 4:
 						return String.class;
-					case 5:
-						return String.class;
-					case 6:
-						return String.class;
 					default:
 						return Boolean.class;
 				}
@@ -445,7 +385,6 @@ class Mainpage extends JPanel{
 		
 		Subject_Table.addMouseListener(new SelectSubjectMouseListener());
 		
-		
 		//ID
 		Id_Label = new JLabel();
 		Id_Label.setFont(SubFont);
@@ -453,7 +392,7 @@ class Mainpage extends JPanel{
 		add(Id_Label);
 		
 		// 제목
-		Title_Label = new JLabel("수강 과목 LIST");
+		Title_Label = new JLabel("프로젝트 LIST");
 		Title_Label.setFont(TitleFont);
 		Title_Label.setForeground(MainColor);
 		Title_Label.setBounds(210,40,400,60);
@@ -559,22 +498,20 @@ class Mainpage extends JPanel{
 		dtcr2.setHorizontalAlignment(SwingConstants.CENTER);
 		dtcr2.setFont(SubFont);
 		Subject_Table.getColumn("V").setPreferredWidth(40);
-		Subject_Table.getColumn("과목").setCellRenderer(dtcr2);
-		Subject_Table.getColumn("과목").setPreferredWidth(150);
-		Subject_Table.getColumn("강사").setCellRenderer(dtcr2);
-		Subject_Table.getColumn("요일").setCellRenderer(dtcr2);
-		Subject_Table.getColumn("시간").setCellRenderer(dtcr2);
-		Subject_Table.getColumn("수강년도").setCellRenderer(dtcr2);
-		Subject_Table.getColumn("학기").setCellRenderer(dtcr2);
+		Subject_Table.getColumn("프로젝트").setCellRenderer(dtcr2);
+		Subject_Table.getColumn("프로젝트").setPreferredWidth(150);
+		Subject_Table.getColumn("담당자").setCellRenderer(dtcr2);
+		Subject_Table.getColumn("년도").setCellRenderer(dtcr2);
+		Subject_Table.getColumn("분기").setCellRenderer(dtcr2);
 		Subject_Table.setRowHeight(50);
 		Subject_Table.setFont(SubFont);
-		
-		
+			
 		// 테이블 정렬
 		Subject_Table.setBackground(Color.WHITE);
 		Subject_Table.setAutoCreateRowSorter(true);
 		TableRowSorter tablesorter = new TableRowSorter(Subject_Table.getModel());
 		Subject_Table.setRowSorter(tablesorter);
+		
 		// 테이블 새로고침
 		Subject_Table.revalidate();
 		Subject_Table.repaint();
@@ -603,8 +540,6 @@ class Mainpage extends JPanel{
 					row.getCell(1).setCellValue(Subject_Table.getValueAt(i, 2).toString());
 					row.getCell(2).setCellValue(Subject_Table.getValueAt(i, 3).toString());
 					row.getCell(3).setCellValue(Subject_Table.getValueAt(i, 4).toString());
-					row.getCell(4).setCellValue(Subject_Table.getValueAt(i, 5).toString());
-					row.getCell(5).setCellValue(Subject_Table.getValueAt(i, 6).toString());
 					rows++;
 				}
 				
@@ -634,7 +569,7 @@ class Mainpage extends JPanel{
 			RefreshSubjectExel();
 			
 			int SelectedRowNum = Subject_Table.getRowCount();
-			String [] S_Reg_Info = {"","","월", "", "2018", "1학기"};
+			String [] S_Reg_Info = {"","","월", "", "2018", "1분기"};
 			win.change("Add_Panel", SelectedRowNum, S_Reg_Info);
 		}
 	}
@@ -668,9 +603,9 @@ class Mainpage extends JPanel{
 			if(Select_Flag == Boolean.TRUE) {
 				RefreshSubjectExel();
 				
-				
-				String[] S_Reg_Info = new String[6];
-				for(int i = 0; i < 6; i++) {
+
+				String[] S_Reg_Info = new String[4];			
+				for(int i = 0; i < 4; i++) {
 					S_Reg_Info[i] = Subject_Table.getValueAt(SelectedRowNum, i+1).toString();
 				}
 				win.change("Change_Panel", SelectedRowNum, S_Reg_Info);
@@ -725,13 +660,11 @@ class Mainpage extends JPanel{
 						//To Do List 엑셀 삭제 
 						RemoveFile(FilePath2, sheet.getRow(rows).getCell(0).getStringCellValue());
 						
-						//선택한 과목의 Row ""으로 초기화 (Subject_List.xlsx)
+						//선택한 프로젝트의 Row ""으로 초기화 (Subject_List.xlsx)
 						row.getCell(0).setCellValue("");
 						row.getCell(1).setCellValue("");
 						row.getCell(2).setCellValue("");
 						row.getCell(3).setCellValue("");
-						row.getCell(4).setCellValue("");
-						row.getCell(5).setCellValue("");
 					}
 					
 					// 공백으로 만들고 파일 닫기
@@ -760,7 +693,7 @@ class Mainpage extends JPanel{
 		}
 	}
 	
-	// 과목 더블클릭시 ToDoList 페이지 전환 마우스리스너
+	// 프로젝트 더블클릭시 ToDoList 페이지 전환 마우스리스너
 	private class SelectSubjectMouseListener extends MouseAdapter {
 		public void mouseClicked(MouseEvent e) {
 			JTable t = (JTable)e.getSource();
@@ -779,70 +712,7 @@ class Mainpage extends JPanel{
 	}
 	
 }
-//
-/*
-class sortExcel{
-	void sort(String FilePath, String FileName) {
-		try {	
-			FileInputStream inputStream = new FileInputStream(FilePath + FileName);
-			XSSFWorkbook workbook = new XSSFWorkbook(inputStream);
-			Sheet sheet = workbook.getSheetAt(0);
-			Row row; 
-			Row NextRow = sheet.getRow(0);
-			Cell NextCell = NextRow.getCell(0);
-			NextCell = NextRow.getCell(0);
-			// Subject_List.xlsx 정리
-			// 엑셀 파일 순회
-			Cell cell;
-			for(int searchRow = 1; searchRow < sheet.getPhysicalNumberOfRows();searchRow++) {
-				row = sheet.getRow(searchRow);
-				cell = row.getCell(0);
-				// Row의 첫번째 Cell이 공백이면 다음 공백이 아닌 Row 찾기
-				System.out.println("cell : " + cell.getStringCellValue());
-				
-				if (cell.getStringCellValue() == ""){
-					System.out.println("공백 row 발견");
-					for(int NextRowNum = searchRow; NextRowNum < sheet.getPhysicalNumberOfRows(); NextRowNum++) {
-						// 공백일 경우 다음 공백이 아닌 셀 찾기
-						NextRow = sheet.getRow(NextRowNum);
-						NextCell = NextRow.getCell(0);
-						if(NextCell.getStringCellValue() != "") {
-							// 다음 공백이 아닌 셀을 공백이였던 셀로 이동
-							System.out.println("공백이 아닌 다음 row 발견 후 이동");
-							for(int r = 0; r <row.getPhysicalNumberOfCells(); r++) {
-								NextCell = NextRow.getCell(r);
-								row.getCell(r).setCellValue(NextCell.getStringCellValue());
-								NextCell.setCellValue("");
-							}
-							break;
-						}
-					}
-				}
-			}
-			// 엑셀 길이 줄이기
-			for(int i=0; i < sheet.getPhysicalNumberOfRows() ; i++) {
-				row = sheet.getRow(sheet.getLastRowNum());
-				cell = row.getCell(0);
-				if(cell.getStringCellValue() == "") {
-					sheet.removeRow(row);
-				}
-				else {
-					break;
-				}	
-			}
-		
-			FileOutputStream outFile;
-			outFile = new FileOutputStream(FilePath + "Subject_List.xlsx");
-			workbook.write(outFile);	
-			outFile.close();
-			workbook.close();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		} 	
-		
-	}
-}
-*/
+
 
 public class MainFrame extends JFrame{
 	public Add_Change_Panel AP = null;
@@ -853,7 +723,7 @@ public class MainFrame extends JFrame{
 	public Todolist TD = null;
 		
 	public void change(String panelName)	{
-		// 과목 페이지 전환
+		// 프로젝트 페이지 전환
 		if(panelName.equals("Mainpage")) {
 			getContentPane().removeAll();
 			getContentPane().add(MP);
@@ -870,7 +740,7 @@ public class MainFrame extends JFrame{
 		}
 				
 	}
-	// 특정 과목의 To Do List보기 전환
+	// 특정 프로젝트의 To Do List보기 전환
 	public void change(String panelName, String Subject_Name) {
 		if(panelName.equals("ToDoList")) {
 			this.setVisible(false);
@@ -884,14 +754,14 @@ public class MainFrame extends JFrame{
 	
 	// 수정 페이지 전환
 	public void change(String panelName, int SelectedRowNum, String[] Reg_Info) {
-		//선택된 과목의 줄수 전달
+		//선택된 프로젝트의 줄수 전달
 		//추가 화면 전환
 		if(panelName.equals("Add_Panel")) {	
 			AP.setPanelName("Add_Panel");
 			AP.setRegInfo(Reg_Info);
 			AP.ChangeMod(Reg_Info);
 			AP.changeRegText("Add_Panel");
-			AP.ChangeTitle("수강 과목 등록");
+			AP.ChangeTitle("프로젝트 등록");
 			AP.repaint();
 			getContentPane().removeAll();
 			getContentPane().add(AP);
@@ -906,7 +776,7 @@ public class MainFrame extends JFrame{
 			AP.setPanelName("Change_Panel");
 			AP.setPreName(Reg_Info[0]);
 			AP.ChangeMod(Reg_Info);
-			AP.ChangeTitle("수강 과목 수정");
+			AP.ChangeTitle("프로젝트 수정");
 			AP.changeRegText("Change_Panel");
 			AP.repaint();
 			getContentPane().removeAll();
@@ -945,15 +815,13 @@ public class MainFrame extends JFrame{
 				sheet2.createRow(0);
 				
 				Row row = sheet.createRow(0);
-				row.createCell(0).setCellValue("과목");
-				row.createCell(1).setCellValue("강사");
-				row.createCell(2).setCellValue("요일");
-				row.createCell(3).setCellValue("시간");
-				row.createCell(4).setCellValue("수강년도");
-				row.createCell(5).setCellValue("학기");
+				row.createCell(0).setCellValue("프로젝트");
+				row.createCell(1).setCellValue("담당자");
+				row.createCell(2).setCellValue("년도");
+				row.createCell(3).setCellValue("분기");
 				
 				Row row2 = sheet2.createRow(0);
-				row2.createCell(0).setCellValue("과목");
+				row2.createCell(0).setCellValue("프로젝트");
 				row2.createCell(1).setCellValue("할 일");
 				row2.createCell(2).setCellValue("마감 기한");
 				row2.createCell(3).setCellValue("실제 마감일");

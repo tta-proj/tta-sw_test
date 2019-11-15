@@ -4,9 +4,7 @@
 ## 설치 주소
 Java jdk 13.0.1 (https://www.oracle.com/technetwork/java/javase/downloads/jdk13-downloads-5672538.html)
 
-Eclipse 2019-09 설치 (https://www.eclipse.org/downloads/)
-
-Maven 3.6.1 설치 (https://maven.apache.org/download.cgi)
+Eclipse 2019-09 설치 (https://www.eclipse.org/downloads/packages/)
 
 bitnami Redmine 설치 (https://bitnami.com/stack/redmine/installer)
 

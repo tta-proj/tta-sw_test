@@ -36,38 +36,27 @@ public class Login extends JPanel{
 			{
 				if(staff.get(s_id).equals(s_pw))
 				{
-					return("로그인 성공");
+					return("sucess");
 				}
 				else
 					if(s_id.length() !=0 && s_pw.length() ==0)
-						return("미입력");	
+						return("null msg");	// 미입력
 					else
-						return("재입력");
+						return("retpye msg");	// 재입력
 			}
 			else
 			{
 				if(s_id.length() ==0)
-					return("미입력");		
+					return("null msg");		// 미입력
 				else if (!s_id.matches("[0-9|a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힝]*"))
-					return("특수문자 금지");
+					return("char msg");	// 특수문자 금지
 				else
-					return("재입력");
+					return("retype msg");	// 재입력
 			}
 		}
 	}
+
 	
-	/*
-	public String Login(String ID, String PW) {
-		if(ID.isEmpty())
-			return ("id 미입력");
-		if(!ID.matches("[0-9|a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힝]*"))
-			return ("특수문자 금지");
-		else if(ID.equals("tta") && PW.equals("tta123"))
-			return ("로그인 성공");
-		else 
-			return("재입력");
-	}
-		*/
 	public Login(MainFrame win) {
 		this.win = win;
 		this.setBackground(Color.WHITE);
@@ -124,11 +113,11 @@ public class Login extends JPanel{
 
 			String logininfo = checkedLogin(ID, PW);
 			
-			if(logininfo.contentEquals("미입력"))
+			if(logininfo.contentEquals("null msg"))
 				JOptionPane.showMessageDialog(null , "아이디, 비밀번호를 입력해주세요");
-			else if(logininfo.contentEquals("특수문자 금지"))
+			else if(logininfo.contentEquals("char msg"))
 				JOptionPane.showMessageDialog(null , "특수문자는 입력 불가능합니다.");
-			else if(logininfo.contentEquals("로그인 성공")) {
+			else if(logininfo.contentEquals("sucess")) {
 				SavedID = ID;
 				win.change("Mainpage");
 			}
